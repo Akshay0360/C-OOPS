@@ -40,7 +40,7 @@ public:
 
 int main() {
     BankAccount a;
-    a.open("Asha", 1000);
+    a.open("Akshay", 1000);
 
     a.deposit(500);
 
