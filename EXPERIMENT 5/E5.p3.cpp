@@ -1,28 +1,24 @@
 #include <iostream>
 using namespace std;
 
-class Distance {
-    int feet, inch;                         // private
+class Car {
+    int speed = 0;
+
+    friend class Dashboard;       // Dashboard may read Car’s private data
 
 public:
-    Distance(int f = 0, int i = 0) : feet(f), inch(i) {}
+    void accelerate() { speed += 10; }
+};
 
-    // friend can read private feet/inch of BOTH arguments
-    friend Distance add(const Distance& a, const Distance& b);
-
-    void show() const {
-        cout << feet << " ft " << inch << " in\n";
+class Dashboard {
+public:
+    void display(const Car &c) {
+        cout << "Speed = " << c.speed << " km/h\n";
     }
 };
 
-Distance add(const Distance& a, const Distance& b) {
-    int totalInch = (a.feet + b.feet) * 12 + a.inch + b.inch;
-    return Distance(totalInch / 12, totalInch % 12);
-}
-
 int main() {
-    Distance d1(5, 8), d2(3, 7);
-    Distance d3 = add(d1, d2);
-    d3.show();                              // 9ft 3in
+    Car c; c.accelerate(); c.accelerate();
+    Dashboard().display(c);       // 20 km/h
     return 0;
 }
